@@ -1,8 +1,17 @@
-const express = require('express')
-const PORT = 4000 // TODO esto habria que ponerlo en el .env
-const app = express()
+const express = require("express");
+const { port } = require("./config");
+const { conexion } = require("./config/db");
+
+
+const app = express();
+
+//Se conecta a MongoDB
+conexion();
+
+//Middleware para usar JSON
+app.use(express.json())
 
 // server listening
-app.listen(PORT, ()=>{
-  console.log('listening on port '+PORT)
-})
+app.listen(port, () => {
+  console.log("listening on port " + port);
+});
