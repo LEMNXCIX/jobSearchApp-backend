@@ -1,7 +1,7 @@
 const express = require("express");
 const { port } = require("./config");
 const { conexion } = require("./config/db");
-
+const vacante = require("./routes/vacantes");
 
 const app = express();
 
@@ -9,7 +9,10 @@ const app = express();
 conexion();
 
 //Middleware para usar JSON
-app.use(express.json())
+app.use(express.json());
+
+//Rutas
+vacante(app);
 
 // server listening
 app.listen(port, () => {
