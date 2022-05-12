@@ -1,8 +1,10 @@
+// importando modulos
 const express = require("express");
 const { port } = require("./config");
 const { conexion } = require("./config/db");
 const vacante = require("./routes/vacantes");
 
+// inicia express
 const app = express();
 
 //Se conecta a MongoDB
@@ -14,7 +16,16 @@ app.use(express.json());
 //Rutas
 vacante(app);
 
-// server listening
+// importando rutas 
+require('./routes/users.routes')
+
+
+
+
+
+
+
+// Inicia servidor
 app.listen(port, () => {
   console.log("listening on port " + port);
 });
