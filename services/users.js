@@ -1,40 +1,66 @@
-const userModel = require('../models/user')
+const UserModel = require("../models/user");
 
-class Users{
-
-  // obtiene todos los usuarios
-  async getAll(){
-
+class Users {
+  async getAll() {
     try {
-      const users = await userModel.find()
+      const users = await UserModel.find();
+      // Ya tenemos disponubles los datos
 
-      return users
-      
+      return users; // Array de objetos
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  } 
+  }
+  async getByEmail(email) {
+    try {
+      const user = await UserModel.findOne({ email });
+      // Ya tenemos disponibles los datos
 
-  // obtiene un usuario
-  getOne(){
+      return user; // Objeto
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-  } 
+  async create(data) {
+    try {
+      const user = await UserModel.create(data);
+      // Ya tenemos disponibles los datos
 
-  // crea un usuario
-  create(){
+      return user; // Objeto
+    } catch (error) {
+      if (error.code === 11000) {
+        const message = `El correo "${error.keyValue.email}" ya está en uso`;
 
-  } 
+        return {
+          error: true,
+          message,
+        };
+      }
+    }
+  }
 
-  // modifica un usuario
-  update(){
+  async update(id, data) {
+    try {
+      const user = await UserModel.findByIdAndUpdate(id, data, { new: true });
+      // Ya tenemos disponibles los datos
 
-  } 
+      return user; // Objeto
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-  // borra un usuario
-  delete(){
+  async delete(id) {
+    try {
+      const user = await UserModel.findByIdAndDelete(id);
+      // Ya tenemos disponibles los datos
 
-  } 
+      return user; // Objeto
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
-
-module.exports = Users
+module.exports = Users;

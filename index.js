@@ -3,25 +3,24 @@ const express = require("express");
 const { port } = require("./config");
 const { conexion } = require("./config/db");
 const vacante = require("./routes/vacantes");
+const users = require("./routes/users.routes");
+const auth = require("./routes/auth.routes");
 
-// inicia express
-const app = express();
+
 
 //Se conecta a MongoDB
 conexion();
+
+// inicia express
+const app = express();
 
 //Middleware para usar JSON
 app.use(express.json());
 
 //Rutas
 vacante(app);
-
-// importando rutas 
-require('./routes/users.routes')
-
-
-
-
+users(app);
+auth(app);
 
 
 

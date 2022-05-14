@@ -9,7 +9,10 @@ const vacanteSchema = new Schema({
   ubicacion: String,
   detalles: 
     {
-      modalidad: String,
+      modalidad: {
+        type: String,
+        enum: ["Presencial", "Hibrida", "Remota"],
+      },
       jornada: String,
       salario: String,
       descripcion: String,
